@@ -1,5 +1,6 @@
 /**
- * Created by sophiagames on 4/30/18.
+ * Created by Michael Goodwin on 4/30/18.
+ * A collection of sorting algorithms.
  */
 
 const sorted = (function () {
