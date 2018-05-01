@@ -57,3 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+.idea/modules.xml
+.idea/sortedjs.iml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/misc.xml
+.idea/watcherTasks.xml
