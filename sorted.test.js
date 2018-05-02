@@ -94,3 +94,86 @@ describe('selection', () => {
     });
 
 });
+
+describe('insertion', () => {
+
+    describe('given invalid parameters', () => {
+        test('a non array as first param throws TypeError', () => {
+            expect(() => sorting.insertion({}, (a, b) => a - b, sorting.orderBy.ASCENDING))
+                .toThrowError(TypeError);
+        });
+        test('an undefined compare function throws Error', () => {
+            expect(() => sorting.insertion([]))
+                .toThrowError(Error);
+        });
+        test('an invalid order type throws Error', () => {
+            expect(() => sorting.insertion([],
+                (a, b) => a - b,
+                'invalid'))
+                .toThrowError(Error);
+        });
+    });
+
+    describe('given an array of numbers', () => {
+        test('ascending sorts correctly', () => {
+            const target = shuffledNumberArray;
+            const result = sorting.insertion(target,
+                (a, b) => a - b,
+                sorting.orderBy.ASCENDING);
+            expect(result).toEqual(sortedAscendingNumberArray);
+        });
+        test('ascending does not modify the original array', () => {
+            const target = shuffledNumberArray;
+            const result = sorting.insertion(target,
+                (a, b) => a - b,
+                sorting.orderBy.ASCENDING);
+            expect(result).not.toEqual(target);
+        });
+        test('descending sorts correctly', () => {
+            const target = shuffledNumberArray;
+            const result = sorting.insertion(target,
+                (a, b) => a - b,
+                sorting.orderBy.DESCENDING);
+            expect(result).toEqual(sortedDescendingNumberArray);
+        });
+        test('descending does not modify the original array', () => {
+            const target = shuffledNumberArray;
+            const result = sorting.insertion(target,
+                (a, b) => a - b,
+                sorting.orderBy.DESCENDING);
+            expect(target).not.toEqual(result);
+        });
+    });
+
+    describe('given an array of object containing objects', () => {
+        test('ascending sorts correctly', () => {
+            const target = shuffledObjectArray;
+            const result = sorting.insertion(target,
+                (a, b) => a.nest.id - b.nest.id,
+                sorting.orderBy.ASCENDING);
+            expect(result).toEqual(sortedAscendingObjectArray);
+        });
+        test('ascending does not modify the original array', () => {
+            const target = shuffledObjectArray;
+            const result = sorting.insertion(target,
+                (a, b) => a.nest.id - b.nest.id,
+                sorting.orderBy.ASCENDING);
+            expect(result).not.toEqual(target);
+        });
+        test('descending sorts correctly', () => {
+            const target = shuffledObjectArray;
+            const result = sorting.insertion(target,
+                (a, b) => a.nest.id - b.nest.id,
+                sorting.orderBy.DESCENDING);
+            expect(result).toEqual(sortedDescendingObjectArray);
+        });
+        test('descending does not modify the original array', () => {
+            const target = shuffledObjectArray;
+            const result = sorting.insertion(target,
+                (a, b) => a.nest.id - b.nest.id,
+                sorting.orderBy.DESCENDING);
+            expect(target).not.toEqual(result);
+        });
+    });
+
+});
