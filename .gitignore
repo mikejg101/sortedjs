@@ -65,3 +65,4 @@ typings/
 .idea/watcherTasks.xml
 .idea/dictionaries/sophiagames.xml
 dist/**/*
+dist.zip
