@@ -2,7 +2,45 @@
  * Created by Michael Goodwin on 4/30/18.
  * A collection of sorting algorithms.
  */
-const sorted = (function () {
+
+(function (sorted) {
+    /**
+     * CommonJS
+     */
+    if (typeof exports === "object" && typeof module === "object") {
+        module.exports = sorted();
+    }
+    /**
+     * RequireJS
+     */
+    if (typeof define === "function" && define.amd) {
+        define(sorted);
+    }
+    /**
+     * Window
+     */
+    if (typeof window !== "undefined" || typeof self !== "undefined") {
+        /**
+         * Prefer window over self for add-on scripts. Use self for
+         * non-windowed contexts.
+         */
+        let global = typeof window !== "undefined" ? window : self;
+        /**
+         * Get the `window` object, save the previous sorted global
+         * and initialize sorted as a global.
+         */
+        let previousSorted = global.sorted;
+        global.sorted = sorted();
+        /**
+         * Add a noConflict function so sorted can be removed from the
+         * global namespace.
+         */
+        global.sorted.noConflict = function () {
+            global.sorted = previousSorted;
+            return this;
+        };
+    }
+}(function () {
     const _isObject = (obj) => (typeof obj === 'object');
     const _isFunction = (fn) => (typeof fn !== 'function');
     const _isAscending = (orderBy) => (orderBy === 'asc');
@@ -167,6 +205,4 @@ const sorted = (function () {
         orderBy
     };
 
-})();
-
-module.exports = sorted;
+}));

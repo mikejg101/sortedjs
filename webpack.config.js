@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ArchivePlugin = require('webpack-archive-plugin');
 
 const environments = ['web', 'webworker', 'node', 'async-node', 'node-webkit', 'electron-main'];
 const targets = [];
@@ -26,9 +27,7 @@ const copyright = 'MIT License\n\n' +
 
 environments.forEach(environment => {
     let envConfig = {
-        entry: {
-            entry: './sorted.js'
-        },
+        entry: './sorted.js',
         target: environment,
         output: {
             path: path.resolve(__dirname, './dist/' + environment),
@@ -44,19 +43,20 @@ environments.forEach(environment => {
                     from: 'readme.md',
                 }
             ]),
-            new webpack.BannerPlugin(copyright)
+            new webpack.BannerPlugin(copyright),
+            new ArchivePlugin()
         ]
     };
     targets.push(webpackMerge(envConfig, {
         mode: 'development',
         output: {
-            filename: environment + '.[name]' + '.js'
+            filename: 'sorted.js'
         }
     }));
     targets.push(webpackMerge(envConfig, {
         mode: 'production',
         output: {
-            filename: environment + '.[name]' + '.min.js'
+            filename: 'sorted.min.js'
         }
     }));
 });
