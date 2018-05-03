@@ -2,9 +2,7 @@
  * Created by Michael Goodwin on 4/30/18.
  * A collection of sorting algorithms.
  */
-
 const sorted = (function () {
-
     const _isObject = (obj) => (typeof obj === 'object');
     const _isFunction = (fn) => (typeof fn !== 'function');
     const _isAscending = (orderBy) => (orderBy === 'asc');
