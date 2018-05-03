@@ -63,3 +63,5 @@ typings/
 .idea/workspace.xml
 .idea/misc.xml
 .idea/watcherTasks.xml
+.idea/dictionaries/sophiagames.xml
+dist/**/*
